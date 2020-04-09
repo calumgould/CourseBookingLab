@@ -17,7 +17,16 @@ public class CourseController {
     CourseRepository courseRepository;
 
     @GetMapping
-    public ResponseEntity<List<Course>> getAllBooking() {
+    public ResponseEntity<List<Course>> getAllBooking(
+        @RequestParam(required = false, name = "starRating") Integer starRating,
+        @RequestParam(required = false, name = "customerId") Long customerId
+    ) {
+        if (customerId != null){
+            return new ResponseEntity<>(courseRepository.findByBookingsCustomerId(customerId), HttpStatus.OK);
+        }
+        if (starRating != null){
+            return new ResponseEntity<>(courseRepository.findByStarRating(starRating), HttpStatus.OK);
+        }
         return new ResponseEntity<>(courseRepository.findAll(), HttpStatus.OK);
     }
 

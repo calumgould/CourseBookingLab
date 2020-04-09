@@ -10,14 +10,19 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/customer")
+@RequestMapping(value = "/customers")
 public class CustomerController {
 
         @Autowired
         CustomerRepository customerRepository;
 
         @GetMapping
-        public ResponseEntity<List<Customer>> getAllCustomer() {
+        public ResponseEntity<List<Customer>> getAllCustomer(
+                @RequestParam(required = false, name = "courseId") Long courseId
+        ) {
+            if (courseId != null){
+                return new ResponseEntity<>(customerRepository.findByBookingsCourseId(courseId), HttpStatus.OK);
+            }
             return new ResponseEntity<>(customerRepository.findAll(), HttpStatus.OK);
         }
 
