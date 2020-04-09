@@ -61,8 +61,8 @@ public class DataLoader implements ApplicationRunner {
         customer1.addBooking(booking1);
         customerRepository.save(customer1);
 
-        customer1.addBooking(booking2);
-        customerRepository.save(customer1);
+        customer2.addBooking(booking2);
+        customerRepository.save(customer2);
 
         customer1.addBooking(booking3);
         customerRepository.save(customer1);
